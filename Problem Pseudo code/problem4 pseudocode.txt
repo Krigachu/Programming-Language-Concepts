@@ -9,8 +9,18 @@
 
 
 --- pseudocode ---
+if(stream input < 3){
+	return nothing
+}
+else{
+	print 3rd indexed element
+	print (2nd indexed element * 2)
+	print (3rd indexed element * 3 - 1)
+}
 
-s
+> repeat the else clause
+> use modulo for the indexed terms? - to wrap around pointer
+ 
 
 --- boundary cases ---
 
