@@ -13,6 +13,7 @@ Input and Output conventions:
 > form "a_nk" where n = no. columns, k = number of rows
 > output should be a stdout in a single column
 > Every line must be terminated with the Unix new line character EOL
+> Streams are vertical in the doc, i.e a column = 1 stream
 
 Language rules (Maybe look at simple languages for inspiration) :
 > "¬" ending character for line (EOL)
