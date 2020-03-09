@@ -1,9 +1,9 @@
-PROGRAM PSEUDOCODE PROBLEM 1
+--PROGRAM PSEUDOCODE PROBLEM 1
 
-List sequenceOne = file.readline
-List sequenceTwo = file.readline
+List sequenceOne = file.readline¬
+List sequenceTwo = file.readline¬
 
-List outputSequence = []
+List outputSequence = []¬
 
 for (i = 0 to (length(sequenceOne) div 2)-1) {
 	outputSequence = outputSequence ++ [sequenceOne[i*2], sequenceOne[i*2 + 1], sequenceTwo[i]]¬
