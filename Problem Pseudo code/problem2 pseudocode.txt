@@ -1,0 +1,24 @@
+--- important notes ---
+
+> 3 streams as input
+> This is the values from input stream three, then two then one
+> followed by the sum of the same values read from streams one and two
+> sum of the values read from streams two and three. 
+> This is then repeated for the next entries in the input streams.
+
+--- pseudocode ---
+
+print stream 3 first indexed term
+print stream 2 first indexed term
+print stream 1 first indexed term
+print (stream 1 first indexed term + stream 2 first indexed term)
+print (stream 2 first indexed term + stream 3 first indexed term)
+repeat but with the index increasing
+
+> base case and recurse?
+
+--- boundary cases ---
+
+if empty?
+negative numbers
+numbers over 32 bits

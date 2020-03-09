@@ -1,0 +1,20 @@
+--- important notes ---
+
+> 1 stream input
+> That is at least three values are taken from the single input sequence
+> The third of these is output first
+> The second is doubled and then output
+> The first value is trebled decremented and output.
+> This sequence repeats.
+
+
+--- pseudocode ---
+
+s
+
+--- boundary cases ---
+
+> stream is not atleast 3 elements long
+> empty values?
+> negative numbers
+> numbers over 32 bits
