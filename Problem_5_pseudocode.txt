@@ -1,0 +1,12 @@
+--PROGRAM PSEUDOCODE PROBLEM 1
+
+List sequenceOne = file.readline¬
+
+List outputSequence = []¬
+
+for (i = 0 to length(sequenceOne)) {
+	for (j = 
+	outputSequence = outputSequence ++ [¬
+}
+
+OUTPUT outputSequence¬
