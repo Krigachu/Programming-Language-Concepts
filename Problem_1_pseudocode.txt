@@ -6,7 +6,7 @@ List sequenceTwo = file.readline
 List outputSequence = []
 
 for (i = 0 to (length(sequenceOne) div 2)-1) {
-	outputSequence = outputSequence ++ [sequenceOne[i*2], sequenceOne[i*2 + 1], sequenceTwo[i]�
+	outputSequence = outputSequence ++ [sequenceOne[i*2], sequenceOne[i*2 + 1], sequenceTwo[i]]¬
 }
 
-OUTPUT outputSequence
+OUTPUT outputSequence¬
