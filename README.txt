@@ -17,7 +17,7 @@ Input and Output conventions:
 Language rules (Maybe look at simple languages for inspiration) :
 > "¬" ending character for line (EOL)
 > encapsulate looping with these brackets {}
-> for (number to number) {}
+> for (i = number to number) {}
 > for (something in list) {}
 > if (conditions) (number of options) {}
 > [] indexing
