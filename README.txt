@@ -21,3 +21,4 @@ Language rules (Maybe look at simple languages for inspiration) :
 > for (something in list) {}
 > if (conditions) (number of options) {}
 > [] indexing
+
