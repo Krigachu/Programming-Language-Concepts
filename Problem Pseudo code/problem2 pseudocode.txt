@@ -7,16 +7,21 @@
 > This is then repeated for the next entries in the input streams.
 
 --- pseudocode ---
-
-print stream 3 first indexed term
-print stream 2 first indexed term
-print stream 1 first indexed term
-print (stream 1 first indexed term + stream 2 first indexed term)
-print (stream 2 first indexed term + stream 3 first indexed term)
-repeat but with the index increasing
+//stream1=a, stream2=b, stream3=c
+while (stream1 input length != 0, stream2 input length != 0, stream3 input length !=0){
+	print (stream3[0])¬
+	print (stream2[0])¬
+	print (stream1[0])¬
+	print (stream1[0] + stream2[0])¬
+	print (stream2[0] + stream3[0])¬
+	remove stream1[0]¬
+	remove stream2[0]¬
+	remove stream3[0]¬
+	
+}
 
 > base case and recurse?
-
+> updating indexing might be a problem.
 --- boundary cases ---
 
 if empty?
