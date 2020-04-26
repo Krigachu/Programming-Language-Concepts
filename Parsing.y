@@ -59,20 +59,20 @@ import Lexing
 
 %% 
 
-Control : for Numb in Numb '{' Control '}'              { TmFor $2 $4 $6 }
+Control : for Prim in Prim '{' Control '}'              { TmFor $2 $4 $6 }
         | if '(' Condition ')' then '{' Control '}'     { TmIf $3 $7 }
         | while '(' Condition ')' then '{' Control '}'  { TmWhile $3 $7 } 
-        | Exp                                           { $1 }
+        | Condition                                           { $1 }
 
 
-Exp : Numb '+' Exp                             { TmAdd $1 $3 }
-    | Numb '-' Exp                             { TmSubtract $1 $3 }
-    | Numb '*' Exp                             { TmMultiply $1 $3 }
-    | Numb '/' Exp                             { TmDivide $1 $3 }
-    | Numb '^' Exp                             { TmPower $1 $3 }
-    | '(' Exp ')'                               { $2 }
-    | Numb                                      { $1 }
-    | Exp '=' Exp                               { TmEquals $1 $3}
+Exp : Prim '+' Exp                             { TmAdd $1 $3 }
+    | Prim '-' Exp                             { TmSubtract $1 $3 }
+    | Prim '*' Exp                             { TmMultiply $1 $3 }
+    | Prim '/' Exp                             { TmDivide $1 $3 }
+    | Prim '^' Exp                             { TmPower $1 $3 }
+    | '(' Exp ')'                              { Bracket $2 }
+    | Exp '=' Exp                              { TmEquals $1 $3}
+    | Prim                                     { $1 }
 
 -- Exp1 : str '++' str
 
@@ -82,20 +82,20 @@ Condition : Exp '<' Exp                      { TmCompareLess $1 $3 }
           | Condition '&&' Condition           { TmAnd $1 $3 }
           | Condition '||' Condition           { TmOr $1 $3 }
           | not Condition                      { TmNot $2 }
+          | Exp                                { $1 }
 
 -- questionable var in numbers, Tm? change?!
 
-Numb : int                                      { TmInt $1 }
+Prim : int                                      { TmInt $1 }
      | real                                     { TmReal $1 }
+     | false                                    { TmFalse $1 }
+     | true                                     { TmTrue $1}
      | var                                      { TmVar $1 }
 
--- Stringz : str                                { TmStr $1 }
+-- Stringz : str                                { TmStr $1 } 
 
-Prim : true                                      { TmTrue }
-     | false                                     { TmFalse } 
-
-Type : Bool            { TyBool }
-     | Str             { TyStr } 
+Type : Bool            { TyBool } 
+     | Str          { TyStr }
      | Real            { TyReal }
      | Int             { TyInt } 
 
@@ -110,14 +110,13 @@ data TokenType = TyInt | TyBool | TyStr | TyReal
 
 type Environment = [ (String,Expr) ]
 
-data Control = TmFor Numb Numb Control | TmIf Condition Control | TmWhile Condition Control | Expr
+data Control = TmFor Prim Prim Control | TmIf Condition Control | TmWhile Condition Control | Condition deriving (Show, Eq)
 
-data Condition = TmCompareLess Expr Expr | TmCompareMore Expr Expr | TmCompareEqual Expr Expr | TmAnd Condition Condition | TmOr Condition Condition | TmNot Condition deriving (Show,Eq)
+data Expr = TmAdd Prim Expr | TmSubtract Prim Expr | TmDivide Prim Expr | TmMultiply Prim Expr | TmPower Prim Expr |TmEquals Expr Expr | Bracket Expr | Prim deriving (Show,Eq)
 
-data Expr = TmAdd Numb Expr | TmSubtract Numb Expr | TmDivide Numb Expr | TmMultiply Numb Expr | Numb | TmEquals Expr Expr | Cl String TokenType Expr Environment
-    deriving (Show,Eq)
+data Condition = TmCompareLess Expr Expr | TmCompareMore Expr Expr | TmCompareEqual Expr Expr | TmAnd Condition Condition | TmOr Condition Condition | TmNot Condition | Expr deriving (Show,Eq)
 
-data Prim = TmTrue | TmFalse deriving (Show,Eq)
 
-data Numb = TmVar String | TmInt Int | TmReal Double deriving (Show,Eq)
+--  Cl String TokenType Expr Environment
+data Prim = TmInt Int | TmReal Double | TmTrue Bool | TmFalse Bool | TmVar String deriving (Show,Eq)
 } 
