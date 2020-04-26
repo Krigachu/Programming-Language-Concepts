@@ -10,7 +10,7 @@ main = catch main' noParse
 main' = do (fileName : _ ) <- getArgs 
            sourceText <- readFile fileName
            putStrLn ("Parsing : " ++ sourceText)
-           -- print (alexScanTokens sourceText)
+           print (alexScanTokens sourceText)
            print (parseCalc (alexScanTokens sourceText))
 
            
