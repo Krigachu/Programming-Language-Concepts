@@ -50,7 +50,7 @@ $white+       ;
   \}              { tok (\p s -> TokenRCurlyBr p)}
   \(              { tok (\p s -> TokenLParen p) }
   \)              { tok (\p s -> TokenRParen p) }
-  ¬               { tok (\p s -> TokenEndLine p) }
+  \!               { tok (\p s -> TokenEndLine p) }
   $alpha [$alpha $digit \_ \’]*   { tok (\p s -> TokenVar p s) } 
 
 {
