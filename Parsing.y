@@ -24,6 +24,9 @@ import Lexing
     '*'    { TokenMultiply _ }
     '/'    { TokenDivide _ }
     '^'    { TokenPower _ }
+    div    { TokenDiv _ }
+    mod    { TokenMod _ }
+    OUTPUT { TokenOutput _ }
     for    { TokenFor _ }
     while  { TokenWhile _ }
     if     { TokenIf _ }
@@ -42,7 +45,7 @@ import Lexing
     '}'    { TokenRCurlyBr _ }
     '('    { TokenLParen _ } 
     ')'    { TokenRParen _ }
-    '¬'    { TokenEndLine _ }
+    '!'    { TokenEndLine _ }
     var    { TokenVar _ $$ } 
 
 
@@ -62,11 +65,28 @@ import Lexing
 Program : Line Program                          { JKProgram $1 $2 }
         | Line                                  { JKFinalLine $1 }
 
-Line : Type var '=' Factor '¬'               { JKTypeEqualLine $1 $2 $4 }
-     | var '=' Factor '¬'                    { JKEqualLine $1 $3 }
-     | if '(' Factor ')' then '{' Factor '}'     { JKIf $3 $7 }
-     | while '(' Factor ')' then '{' Factor '}'  { JKWhile $3 $7 }
-     | for Factor in Factor '{' Factor '}'       { JKFor $2 $4 $6 }
+Line : Type var '=' Exp '!'               { JKTypeEqualLine $1 $2 $4 }
+     | var '=' Exp '!'                    { JKEqualLine $1 $3 }
+     | if '(' Condition ')' then '{' Program '}'     { JKIf $3 $7 }
+     | while '(' Condition ')' then '{' Program '}'  { JKWhile $3 $7 }
+     | for '(' Factor in Factor ')' then '{' Program '}'       { JKFor $3 $5 $9 }
+     | OUTPUT '(' Exp ')' '!'                     { JKOutput $3 }
+
+Exp : Exp '+' Exp                             { JKAdd $1 $3 }
+    | Exp '-' Exp                             { JKSubtract $1 $3 }
+    | Exp '*' Exp                             { JKMultiply $1 $3 }
+    | Exp '/' Exp                             { JKDivide $1 $3 }
+    | Exp '^' Exp                             { JKPower $1 $3 }
+    | Exp div Exp                             { JKDiv $1 $3 }
+    | Exp mod Exp                             { JKMod $1 $3 }
+    | Factor                                  { JKFactor $1 }
+
+Condition : Exp '<' Exp                      { JKCompareLess $1 $3 }
+          | Exp '>' Exp                      { JKCompareMore $1 $3 }
+          | Exp '==' Exp                     { JKCompareEqual $1 $3 }
+          | Condition '&&' Condition           { JKAnd $1 $3 }
+          | Condition '||' Condition           { JKOr $1 $3 }
+          | not '(' Condition ')'              { JKNot $3 }
 
 Factor : '(' Factor ')'                           { Bracket $2 }
        | int                                      { JKInt $1 }
@@ -99,11 +119,30 @@ data Factor = JKInt Int
             | Bracket Factor
             deriving (Show, Eq)
 
-data Line = JKTypeEqualLine TokenType String Factor
-          | JKEqualLine String Factor
-          | JKIf Factor Factor
-          | JKWhile Factor Factor
-          | JKFor Factor Factor Factor
+data Exp = JKAdd Exp Exp
+         | JKSubtract Exp Exp
+         | JKMultiply Exp Exp
+         | JKDivide Exp Exp
+         | JKPower Exp Exp
+         | JKDiv Exp Exp
+         | JKMod Exp Exp
+         | JKFactor Factor
+         deriving (Show, Eq)
+
+data Condition = JKCompareLess Exp Exp 
+               | JKCompareMore Exp Exp 
+               | JKCompareEqual Exp Exp 
+               | JKAnd Condition Condition 
+               | JKOr Condition Condition 
+               | JKNot Condition 
+               deriving (Show, Eq)
+
+data Line = JKTypeEqualLine TokenType String Exp
+          | JKEqualLine String Exp
+          | JKIf Condition Program
+          | JKWhile Condition Program
+          | JKFor Factor Factor Program
+          | JKOutput Exp
           deriving (Show, Eq)
 
 data Program = JKProgram Line Program

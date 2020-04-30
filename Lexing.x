@@ -31,7 +31,7 @@ $white+       ;
   \^              { tok (\p s -> TokenPower p)}
   div             { tok (\p s -> TokenDiv p)}
   mod             { tok (\p s -> TokenMod p)}
-  print           { tok (\p s -> TokenPrint p)}
+  OUTPUT           { tok (\p s -> TokenOutput p)}
   for             { tok (\p s -> TokenFor p) }
   while           { tok (\p s -> TokenWhile p) }
   if              { tok (\p s -> TokenIf p) }
@@ -81,7 +81,7 @@ data Token =
   TokenPower AlexPosn            |
   TokenDiv AlexPosn              |
   TokenMod AlexPosn              |
-  TokenPrint AlexPosn            |
+  TokenOutput AlexPosn           |
   TokenFor AlexPosn              |
   TokenWhile AlexPosn            |
   TokenIf AlexPosn               |
@@ -125,7 +125,7 @@ tokenPosn (TokenDivide  (AlexPn a l c)) = show(l) ++ ":" ++ show(c)
 tokenPosn (TokenPower  (AlexPn a l c)) = show(l) ++ ":" ++ show(c)
 tokenPosn (TokenDiv  (AlexPn a l c)) = show(l) ++ ":" ++ show(c)
 tokenPosn (TokenMod  (AlexPn a l c)) = show(l) ++ ":" ++ show(c)
-tokenPosn (TokenPrint  (AlexPn a l c)) = show(l) ++ ":" ++ show(c)
+tokenPosn (TokenOutput  (AlexPn a l c)) = show(l) ++ ":" ++ show(c)
 tokenPosn (TokenFor (AlexPn a l c)) = show(l) ++ ":" ++ show(c)
 tokenPosn (TokenWhile (AlexPn a l c)) = show(l) ++ ":" ++ show(c)
 tokenPosn (TokenIf (AlexPn a l c)) = show(l) ++ ":" ++ show(c)
