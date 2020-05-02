@@ -7,8 +7,7 @@
 #   
 
 # Files that need to be generated from other files
-DEPEND += Lexing.hs Parsing.hs Main.hs 
-#ToyEval.hs
+DEPEND += Lexing.hs Parsing.hs Evaluator.hs
 
 # When "make" is invoked with no arguments, we build an executable 
 #  after building everything that it depends on
