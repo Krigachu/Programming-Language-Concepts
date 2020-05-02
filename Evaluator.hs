@@ -6,7 +6,7 @@ import Parsing
 data Expr = Program | Line | Condition | Exp | Factor
 
 type Environment = [ (String, Factor) ]
-type State = (Program  ,Environment)
+type State = (Expr, Environment)
 
 isValue :: Factor -> Bool
 isValue (JKInt _) = True
@@ -22,28 +22,51 @@ deparse (JKTrue) = "true"
 deparse (JKFalse) = "false"
 deparse _ = "Unknown"
 
---addVariable :: Environment -> Environment
---deal with conflicting variables
+addVariable :: String -> Exp -> Environment -> Environment
+addVariable s e [] = (s,e):[] 
+addVariable s e ((y,x):env) | s == y = ((y,e):env)
+                            | otherwise = addVariable s e env
 
-eval :: State -> State
-eval ((JKProgram l p), env) = (evalLine (l, env))
-eval ((JKFinalLine l), env) = (evalLine (l, env))
+--getting variable from environment, maybe type could be used here
+getVariable :: String -> Environment -> Exp
+getVariable s [] = error "u big dumb"
+getVariable s ((y,e):env) | s == y = e
+                          | otherwise = getVariable s env
+
+--eval :: State -> State
+--eval ((JKProgram l p), env) = (evalLine (l, env))
+--eval ((JKFinalLine l), env) = (evalLine (l, env))
+
+--Deal with if statements
+dealIf :: Program -> Environment -> Environment
+dealIf(p, env) = snd $evalLine(p, env)
+--Deal with while loops
+dealWhile :: Condition -> Environment -> Program -> Environment
+dealWhile c env p | c == True = dealWhile c (snd (evalLine (p env))) p
+                  | otherwise = env
 
 evalLine :: State -> State
-evalLine (JKProgram (JKTypeEqualLine t s e) prog, env) = eval(prog, env ++ [(s, evalExp (e) )])
-evalLine (JKFinalLine (JkTypeEqualLine t s e), env) = (JKFinalLine (JkTypeEqualLine t s e), env ++ [(s, evalExp(e))])
-evalLine (JKProgram (JKEqualLine s e) prog, env) = eval()
-evalLine (JKFinalLine (JKEqualLine s e), env) = 
-evalLine (JKProgram (JKIf c p) prog, env) = 
-evalLine (JKFinalLine (JKIf c p), env) = evalCondition (c) eval (p)
-evalLine (JKProgram (JKWhile c p) prog, env) = evalCondition (c) eval (p)
-evalLine (JKFinalLine (JKWhile c p), env) = 
-evalLine (JKProgram (JKFor f f2 p) prog, env) =
-evalLine (JKFinalLine (JKFor f f2 p), env) =
-evalLine (JKProgram (JKOutput e)) = print ( evalExp (e) )
+evalLine (JKProgram (JKTypeEqualLine t s e) prog, env) = evalLine(prog, addVariable s e env)
+evalLine (JKFinalLine (JkTypeEqualLine t s e), env) = (JKFinalLine (JkTypeEqualLine t s e), addVariable s e env)
+evalLine (JKProgram (JKEqualLine s e) prog, env) = evalLine(prog, addVariable(s e env))
+evalLine (JKFinalLine (JKEqualLine s e), env) = (JKFinalLine (JKEqualLine s e), addVariable s e env)
+evalLine (JKProgram (JKIf c p) prog, env) | evalCondition(c, env) == True = evalLine(prog, dealIf (p, env) )
+                                          | otherwise = evalLine(prog, env)
+evalLine (JKFinalLine (JKIf c p), env) | evalCondition(c, env) == True = evalLine(p, env)
+                                       | otherwise = (JKFinalLine (JKIf c p), env)
+evalLine (JKProgram (JKWhile c p) prog, env) | evalCondition(c, env) == True = evalLine(prog, dealWhile c env p)
+                                             | otherwise = evalLine(prog, env)
+evalLine (JKFinalLine (JKWhile c p), env) | evalCondition(c, env) == True = (JKFinalLine (JKWhile c p), dealWhile c env p)
+                                          | otherwise = (JKFinalLine (JKWhile c p), env)
+--evalLine (JKProgram (JKFor f f2 p) prog, env) = dealFor
+--evalLine (JKFinalLine (JKFor f f2 p), env) = dealFor
+evalLine (JKProgram (JKOutput e) prog, env) = do print ( evalExp (e) )
+                                                 evalState <- evalLine (prog, env)
+evalLine (JKFinalLine (JKOutput e), env) = do print ( evalExp (e) )
+                                              evalState <- (JKFinalLine (JKOutput e), env)
 
 evalCondition :: State -> State
-evalCondition (JKCompareLess e1 e2) | evalExp (e1) < evalExp (e2) = True
+evalCondition (JKCompareLess e1 e2, ) | evalExp (e1) < evalExp (e2) = True
                                     | otherwise = False
 evalCondition (JKCompareMore e1 e2) | evalExp (e1) > evalExp (e2) = True
                                     | otherwise = False
@@ -69,7 +92,7 @@ evalFactor (JKInt i) = i
 --evalFactor (JKReal d) = d
 --evalFactor (JKFalse) = False
 --evalFactor (JKTrue) = True
---evalFactor (JKVar s) = s
+evalFactor (JKVar s) = getVariable
 
 --evalType (TyBool) = Bool
 --evalType (TyStr) = String
