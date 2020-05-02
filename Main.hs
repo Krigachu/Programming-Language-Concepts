@@ -1,5 +1,6 @@
 import Lexing
 import Parsing
+import Evaluator
 import System.Environment
 import Control.Exception
 import System.IO

@@ -31,11 +31,11 @@ eval (JKProgram l p) = evalLine (l) ++ eval (p)
 eval (JKFinalLine l) = evalLine (l)
 
 
-evalLine (JKTypeEqualLine t s e) = 
-evalLine (JKEqualLine s e) = 
-evalLine (JKIf c p) = 
-evalLine (JKWhile c p) = 
-evalLine (JKFor f f2 p) = 
+evalLine (JKTypeEqualLine t s e) = evalType (t) evalFactor (s) evalExp (e)
+evalLine (JKEqualLine s e) = evalFactor (s) evalExp (e)
+evalLine (JKIf c p) = evalCondition (c) eval (p)
+evalLine (JKWhile c p) = evalCondition (c) eval (p)
+evalLine (JKFor f f2 p) = evalExp (f) evalExp (f2) eval (p)
 evalLine (JKOutput e) = print evalExp (e)
 
 evalCondition (JKCompareLess e1 e2) | evalExp (e1) < evalExp (e2) = True
@@ -63,3 +63,8 @@ evalFactor (JKReal d) = d
 evalFactor (JKFalse) = False
 evalFactor (JKTrue) = True
 evalFactor (JKVar s) = s
+
+evalType (TyBool) = Bool
+evalType (TyStr) = String
+evalType (TyInt) = Int
+evalType (TyReal) = Real
