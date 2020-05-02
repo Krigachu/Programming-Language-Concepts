@@ -79,6 +79,7 @@ Exp : Exp '+' Exp                             { JKAdd $1 $3 }
     | Exp '^' Exp                             { JKPower $1 $3 }
     | Exp div Exp                             { JKDiv $1 $3 }
     | Exp mod Exp                             { JKMod $1 $3 }
+    | '(' Exp ')'                           { Bracket $2 }
     | Factor                                  { JKFactor $1 }
 
 Condition : Exp '<' Exp                      { JKCompareLess $1 $3 }
@@ -88,8 +89,7 @@ Condition : Exp '<' Exp                      { JKCompareLess $1 $3 }
           | Condition '||' Condition           { JKOr $1 $3 }
           | not '(' Condition ')'              { JKNot $3 }
 
-Factor : '(' Factor ')'                           { Bracket $2 }
-       | int                                      { JKInt $1 }
+Factor : int                                      { JKInt $1 }
        | real                                     { JKReal $1 }
        | false                                    { JKFalse }
        | true                                     { JKTrue }
@@ -116,7 +116,6 @@ data Factor = JKInt Int
             | JKFalse
             | JKTrue
             | JKVar String
-            | Bracket Factor
             deriving (Show, Eq)
 
 data Exp = JKAdd Exp Exp
@@ -126,6 +125,7 @@ data Exp = JKAdd Exp Exp
          | JKPower Exp Exp
          | JKDiv Exp Exp
          | JKMod Exp Exp
+         | Bracket Exp
          | JKFactor Factor
          deriving (Show, Eq)
 
