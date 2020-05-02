@@ -20,7 +20,7 @@ main' = do (fileName : _ ) <- getArgs
            print (alexScanTokens sourceText)
            print (parseCalc (alexScanTokens sourceText))
            --let result = eval (parseCalc (alexScanTokens sourceText))
-           print (eval (parseCalc (alexScanTokens sourceText)))
+           print (evalLine ((parseCalc (alexScanTokens sourceText)), []))
 
            
 noParse :: ErrorCall -> IO ()
