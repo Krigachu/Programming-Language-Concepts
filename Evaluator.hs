@@ -29,11 +29,11 @@ deparse _ = "Unknown"
 addVariable :: String -> Int -> Environment -> Environment
 addVariable s e [] = (s, JKInt e):[] 
 addVariable s e ((y,x):env) | s == y = ((y, JKInt e):env)
-                            | otherwise = addVariable s e env
+                            | otherwise = (y,x) : addVariable s e env
 
 --getting variable from environment, maybe type could be used here
 getVariable :: String -> Environment -> Int
-getVariable s [] = error "u big dumb"
+getVariable s [] = error "variable used before definition... u big dumb"
 getVariable s ((y,e):env) | s == y = evalFactor (e, env)
                           | otherwise = getVariable s env
 
