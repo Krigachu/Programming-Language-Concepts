@@ -19,6 +19,8 @@ main' = do (fileName : _ ) <- getArgs
            putStrLn ("Parsing : " ++ sourceText)
            print (alexScanTokens sourceText)
            print (parseCalc (alexScanTokens sourceText))
+           --let result = eval (parseCalc (alexScanTokens sourceText))
+           print (eval (parseCalc (alexScanTokens sourceText)))
 
            
 noParse :: ErrorCall -> IO ()
