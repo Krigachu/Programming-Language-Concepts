@@ -1,29 +1,35 @@
 --- important notes ---
 
-> 3 streams as input
-> This is the values from input stream three, then two then one
-> followed by the sum of the same values read from streams one and two
-> sum of the values read from streams two and three. 
-> This is then repeated for the next entries in the input streams.
+-- 3 streams as input
+-- This is the values from input stream three, then two then one
+-- followed by the sum of the same values read from streams one and two
+-- sum of the values read from streams two and three. 
+-- This is then repeated for the next entries in the input streams.
+
 
 --- pseudocode ---
-//stream1=a, stream2=b, stream3=c
-while (stream1 input length != 0, stream2 input length != 0, stream3 input length !=0){
-	print (stream3[0])¬
-	print (stream2[0])¬
-	print (stream1[0])¬
-	print (stream1[0] + stream2[0])¬
-	print (stream2[0] + stream3[0])¬
-	remove stream1[0]¬
-	remove stream2[0]¬
-	remove stream3[0]¬
-	
+List stream1 = file readline !
+List stream2 = file readline !
+List stream3 = file readline !
+
+List outputStream !
+i = 0 !
+
+while (i < length(stream1) && i < length(stream2) && i < length(stream3)) then {
+outputStream ++ stream3 index i !
+outputStream ++ stream2 index i !
+outputStream ++ stream1 index i !
+outputStream ++ stream1 index i + stream2 index i !
+outputStream ++ stream2 index i + stream3 index i !
+i = i + 1 !
 }
 
-> base case and recurse?
-> updating indexing might be a problem.
+OUTPUT ( outputStream ) !
+
+-- base case and recurse?
+-- updating indexing might be a problem.
 --- boundary cases ---
 
-if empty?
-negative numbers
-numbers over 32 bits
+--if empty?
+--negative numbers
+--numbers over 32 bits
