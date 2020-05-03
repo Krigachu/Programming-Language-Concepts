@@ -1,16 +1,15 @@
---PROGRAM PSEUDOCODE PROBLEM 1
+--PROGRAM PSEUDOCODE PROBLEM 5
 
-List sequenceOne = file.readline¬
+List sequenceOne = file.readline !
 
-List outputSequence = []¬
-Num countNum = 0¬
+List outputSequence !
+countNum = 0 !
+i = 0 !
 
-for (i = 0 to length(sequenceOne)) {
-	countNum = 0¬
-	for (j = 0 to i) {
-		countNum = countNum + sequenceOne[j]¬
-	}
-	outputSequence = outputSequence ++ [countNum]¬
+while ( i < length(sequenceOne) ) { 
+countNum = countNum + sequenceOne index i !
+outputSequence ++ countNum !
+i = i + 1 !
 }
 
-OUTPUT outputSequence¬
+OUTPUT ( outputSequence ) !

@@ -1,12 +1,15 @@
 --PROGRAM PSEUDOCODE PROBLEM 1
 
-List sequenceOne = file.readline¬
-List sequenceTwo = file.readline¬
+List sequenceOne = file.readline !
+List sequenceTwo = file.readline !
 
-List outputSequence = []¬
+List outputSequence !
+i = 0 !
 
-for (i = 0 to (length(sequenceOne) div 2)-1) {
-	outputSequence = outputSequence ++ [sequenceOne[i*2], sequenceOne[i*2 + 1], sequenceTwo[i]]¬
+while (  i < (length(sequenceOne) div 2) - 1 ) {
+outputSequence ++ sequenceOne index (i*2) !
+outputSequence ++ sequenceOne index (i*2 + 1) !
+outputSequence ++ sequenceTwo index i !
 }
 
-OUTPUT outputSequence¬
+OUTPUT ( outputSequence ) !
