@@ -13,6 +13,7 @@ import Lexing
     Int    { TokenTypeInt _ }
     List   { TokenTypeList _}
     index  { TokenIndex _ }
+    getline {TokenGetLine _}
     str    { TokenStr _ $$ }
     int    { TokenInt _ $$ } 
     real    { TokenReal _ $$ }
@@ -95,6 +96,7 @@ Condition : Exp '<' Exp                      { JKCompareLess $1 $3 }
           | not '(' Condition ')'              { JKNot $3 }
 
 Factor : int                                      { JKInt $1 }
+       | '-' Factor %prec NEG                     { Negate $2 } 
        | real                                     { JKReal $1 }
        | false                                    { JKFalse }
        | true                                     { JKTrue }
@@ -117,6 +119,7 @@ data TokenType = TyInt
                deriving (Show,Eq)
 
 data Factor = JKInt Int
+            | Negate Factor
             | JKReal Double
             | JKFalse
             | JKTrue
