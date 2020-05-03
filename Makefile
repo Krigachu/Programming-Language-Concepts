@@ -11,7 +11,7 @@ DEPEND += Lexing.hs Parsing.hs Evaluator.hs
 
 # When "make" is invoked with no arguments, we build an executable 
 #  after building everything that it depends on
-all: $(DEPEND) Mainboi
+all: $(DEPEND) Interpreter
 #Toy
 
 # Build an executable for Toy interpreter
@@ -19,8 +19,9 @@ all: $(DEPEND) Mainboi
 #	ghc Toy.hs
 
 # Build an executable for interactive mode
-Mainboi: $(DEPEND) Main.hs
-	ghc Main.hs
+Interpreter: $(DEPEND) myinterpreter.hs
+	ghc myinterpreter.hs
+
 
 # Generate ML files from a parser definition file
 Parsing.hs : Parsing.y
