@@ -1,10 +1,7 @@
-||
-5 + 5.5
-awdsd
-if aeiofhsef ++ &&
-"jeeli beeli goomi wormi" asdwa
-for i = 1 in 19
-while
-[ kri is fat ]
-{}
-&&
+List mylist !
+i = 1 !
+while ( i < 10 ) then {
+mylist ++ i !
+i = i + 1 !
+}
+OUTPUT ( mylist ) !

@@ -5,7 +5,7 @@ import System.Environment
 import Control.Exception
 import System.IO
 
-main :: IO ()
+main :: IO String
 main = catch main' noParse
 
 main2 = do (fileName : _ ) <- getArgs 
@@ -20,12 +20,12 @@ main' = do (fileName : _ ) <- getArgs
            print (alexScanTokens sourceText)
            print (parseCalc (alexScanTokens sourceText))
            --let result = eval (parseCalc (alexScanTokens sourceText))
-           print (evalLine ((parseCalc (alexScanTokens sourceText)), []))
+           doProgram ((parseCalc (alexScanTokens sourceText)))
 
            
-noParse :: ErrorCall -> IO ()
+noParse :: ErrorCall -> IO String
 noParse e = do let err =  show e
                hPutStr stderr err
-               return ()
+               return ("")
 
 
