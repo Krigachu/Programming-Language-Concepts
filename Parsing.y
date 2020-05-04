@@ -58,10 +58,11 @@ import Lexing
 %nonassoc then
 %nonassoc else
 %nonassoc int true false var '(' ')'
-%left '<'
+%left '<' 
 %left '>'
-%left '-'
-%left '+'
+%left '-' '+'
+%left '*' 'div' 'mod'
+%left '^'
 %left NEG
 
 %% 
