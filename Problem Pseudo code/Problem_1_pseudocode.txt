@@ -10,10 +10,10 @@ List sequenceTwo !
 a = 0 !
 while ( not (a == 0) ) then {
 if ( ( a mod 2 ) == 0 ) then {
-sequenceOne ++ index stream a
+sequenceOne ++ stream index a !
 }
 if ( ( a mod 2 ) == 1 ) then {
-sequenceTwo ++ index stream a
+sequenceTwo ++ stream index a !
 }
 a = a + 1 !
 }
