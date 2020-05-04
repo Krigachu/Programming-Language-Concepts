@@ -90,11 +90,19 @@ printList [] = return("")
 printList (x:xs) = do print(x)
                       printList xs
 
+--String is name of list, call replace list 
+--doGetLine :: String -> [Int] -> ListEnvironment -> ListEnvironment
 doGetLine :: String -> ListEnvironment -> ListEnvironment
+--doGetLine s es lenv = replaceList s es lenv
 doGetLine s lenv = addToList (addList s lenv)
 
+--Only works with IO [Int], not [Int]
 convertToInts :: [Int]
-convertToInts = map (read::String -> Int) $words getLine
+convertToInts = do fileLine <- getLine
+                   let fileLineInput = words fileLine
+                   let listInts = map (read::String -> Int) (fileLineInput)  
+                   return ([1])
+--convertToInts = map (read::String -> Int) $words getLine
 
 evalLine :: State -> State
 evalLine (JKProgram (JKInstantiateList s) prog, env, lenv) = evalLine(prog, env, addList s lenv)
