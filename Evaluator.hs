@@ -79,8 +79,8 @@ dealWhile :: Condition -> Environment -> ListEnvironment -> Program -> (Environm
 dealWhile c env lenv p | evalCondition (c, env, lenv) == True = dealWhile c (second (evalLine (p, env, lenv))) (third (evalLine (p, env, lenv))) p
                        | otherwise = (env, lenv)
 
-doProgram :: Program -> IO String
-doProgram (prog) = outProgram(evalLine (prog, [], []))
+doProgram :: State -> IO String
+doProgram (prog, env, lenv) = outProgram(evalLine (prog, env, lenv))
 
 outProgram :: State -> IO String
 outProgram ((JKFinalLine (JKOutput e)), env, lenv) = printList((getList e lenv))
@@ -92,16 +92,16 @@ printList (x:xs) = do print(x)
 
 --String is name of list, call replace list 
 --doGetLine :: String -> [Int] -> ListEnvironment -> ListEnvironment
-doGetLine :: String -> ListEnvironment -> ListEnvironment
+--doGetLine :: String -> ListEnvironment -> ListEnvironment
 --doGetLine s es lenv = replaceList s es lenv
-doGetLine s lenv = addToList (addList s lenv)
+--doGetLine s lenv = addToList (addList s lenv)
 
 --Only works with IO [Int], not [Int]
-convertToInts :: [Int]
-convertToInts = do fileLine <- getLine
-                   let fileLineInput = words fileLine
-                   let listInts = map (read::String -> Int) (fileLineInput)  
-                   return ([1])
+--convertToInts :: [Int]
+--convertToInts = do fileLine <- getLine
+--                   let fileLineInput = words fileLine
+--                   let listInts = map (read::String -> Int) (fileLineInput)  
+--                   return ([1])
 --convertToInts = map (read::String -> Int) $words getLine
 
 evalLine :: State -> State
@@ -109,8 +109,8 @@ evalLine (JKProgram (JKInstantiateList s) prog, env, lenv) = evalLine(prog, env,
 evalLine (JKFinalLine (JKInstantiateList s), env, lenv) = (JKFinalLine (JKInstantiateList s), env, addList s lenv)
 evalLine (JKProgram (JKConcat s e) prog, env, lenv) = evalLine(prog, env, addToList s (evalExp (e, env, lenv)) lenv)
 evalLine (JKFinalLine (JKConcat s e), env, lenv) = (JKFinalLine (JKConcat s e), env, addToList s (evalExp (e, env, lenv)) lenv)
-evalLine (JKProgram (JKGetLine s) prog, env, lenv) = evalLine(prog, env, doGetLine s lenv)
-evalLine (JKProgram (JKGetLine s) prog, env, lenv) = (JKProgram (JKGetLine s), env, doGetLine s lenv)
+--evalLine (JKProgram (JKGetLine s) prog, env, lenv) = evalLine(prog, env, doGetLine s lenv)
+--evalLine (JKProgram (JKGetLine s) prog, env, lenv) = (JKProgram (JKGetLine s), env, doGetLine s lenv)
 evalLine (JKProgram (JKTypeEqualLine t s e) prog, env, lenv) = evalLine(prog, addVariable s (evalExp (e, env, lenv)) env, lenv)
 evalLine (JKFinalLine (JKTypeEqualLine t s e), env, lenv) = (JKFinalLine (JKTypeEqualLine t s e), addVariable s (evalExp (e, env, lenv)) env, lenv)
 evalLine (JKProgram (JKEqualLine s e) prog, env, lenv) = evalLine(prog, addVariable s (evalExp (e, env, lenv)) env, lenv)
