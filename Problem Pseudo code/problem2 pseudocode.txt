@@ -1,16 +1,16 @@
---- important notes ---
+-- Program 2 pseudocode
+List stream1 !
+List stream2 !
+List stream3 !
 
--- 3 streams as input
--- This is the values from input stream three, then two then one
--- followed by the sum of the same values read from streams one and two
--- sum of the values read from streams two and three. 
--- This is then repeated for the next entries in the input streams.
+j = 0 !
 
-
---- pseudocode ---
-List stream1 = file readline !
-List stream2 = file readline !
-List stream3 = file readline !
+while (j < length(Stream) ) then {
+stream1 ++ Stream index j !
+stream2 ++ Stream index (j + 1) !
+stream3 ++ Stream index (j + 2) !
+j = j + 3 !
+}
 
 List outputStream !
 i = 0 !
@@ -25,11 +25,3 @@ i = i + 1 !
 }
 
 OUTPUT ( outputStream ) !
-
--- base case and recurse?
--- updating indexing might be a problem.
---- boundary cases ---
-
---if empty?
---negative numbers
---numbers over 32 bits

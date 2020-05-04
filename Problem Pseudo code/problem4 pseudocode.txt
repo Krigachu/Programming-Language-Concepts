@@ -1,36 +1,15 @@
---- important notes ---
+-- Problem 4
 
--- 1 stream input
--- That is at least three values are taken from the single input sequence
--- The third of these is output first
--- The second is doubled and then output
--- The first value is trebled decremented and output.
--- This sequence repeats.
-
-
---- pseudocode ---
-
-List stream = file readline !
 List outputSequence !
 i = 0 !
 
-if ( length (stream) > 2) then {
-while ( length (stream) - i > 2 ) then {
-outputSequence ++ stream index (i + 2) !
-outputSequence ++ (stream index (i + 1)) * 2 !
-outputSequence ++ ((stream index i) * 3) - 1) !
+if ( length (Stream) > 2) then {
+while ( length (Stream) - i > 2 ) then {
+outputSequence ++ Stream index (i + 2) !
+outputSequence ++ (Stream index (i + 1)) * 2 !
+outputSequence ++ ((Stream index i) * 3) - 1 !
 i = i + 3 !
 }
 }
 
 OUTPUT ( outputSequence ) !
-
--- use modulo for the indexed terms? - to wrap around pointer
- 
-
---- boundary cases ---
-
--- stream is not atleast 3 elements long
---empty values?
--- negative numbers
--- numbers over 32 bits

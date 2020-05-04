@@ -1,13 +1,11 @@
 --PROGRAM PSEUDOCODE PROBLEM 5
 
-List sequenceOne = file.readline !
-
 List outputSequence !
 countNum = 0 !
 i = 0 !
 
-while ( i < length(sequenceOne) ) then { 
-countNum = countNum + sequenceOne index i !
+while ( i < length(Stream) ) then { 
+countNum = countNum + Stream index i !
 outputSequence ++ countNum !
 i = i + 1 !
 }
