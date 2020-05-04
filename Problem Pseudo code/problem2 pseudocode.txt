@@ -19,8 +19,8 @@ while (i < length(stream1) && i < length(stream2) && i < length(stream3)) then {
 outputStream ++ stream3 index i !
 outputStream ++ stream2 index i !
 outputStream ++ stream1 index i !
-outputStream ++ stream1 index i + stream2 index i !
-outputStream ++ stream2 index i + stream3 index i !
+outputStream ++ (stream1 index i) + (stream2 index i) !
+outputStream ++ (stream2 index i) + (stream3 index i) !
 i = i + 1 !
 }
 
