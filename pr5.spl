@@ -1,0 +1,13 @@
+--PROGRAM PSEUDOCODE PROBLEM 5
+
+List outputSequence !
+countNum = 0 !
+i = 0 !
+
+while ( i < length(Stream) ) then { 
+countNum = countNum + Stream index i !
+outputSequence ++ countNum !
+i = i + 1 !
+}
+
+OUTPUT ( outputSequence ) !

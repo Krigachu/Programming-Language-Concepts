@@ -1,0 +1,24 @@
+--PROGRAM PSEUDOCODE PROBLEM 1
+
+List stream1 !
+List stream2 !
+
+j = 0 !
+
+while (j < length(Stream) ) then {
+stream1 ++ Stream index j !
+stream2 ++ Stream index (j + 1) !
+j = j + 2 !
+}
+
+List outputSequence !
+i = 0 !
+
+while (  i < length(stream1) ) then {
+outputSequence ++ stream1 index i !
+outputSequence ++ stream1 index (i + 1) !
+outputSequence ++ stream2 index (i div 2) !
+i = i + 2 !
+}
+
+OUTPUT ( outputSequence ) !

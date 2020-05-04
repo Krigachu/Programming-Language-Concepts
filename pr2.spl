@@ -1,0 +1,27 @@
+-- Program 2 pseudocode
+List stream1 !
+List stream2 !
+List stream3 !
+
+j = 0 !
+
+while (j < length(Stream) ) then {
+stream1 ++ Stream index j !
+stream2 ++ Stream index (j + 1) !
+stream3 ++ Stream index (j + 2) !
+j = j + 3 !
+}
+
+List outputStream !
+i = 0 !
+
+while (i < length(stream1) && i < length(stream2) && i < length(stream3)) then {
+outputStream ++ stream3 index i !
+outputStream ++ stream2 index i !
+outputStream ++ stream1 index i !
+outputStream ++ (stream1 index i) + (stream2 index i) !
+outputStream ++ (stream2 index i) + (stream3 index i) !
+i = i + 1 !
+}
+
+OUTPUT ( outputStream ) !

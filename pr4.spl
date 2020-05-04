@@ -1,0 +1,15 @@
+-- Problem 4
+
+List outputSequence !
+i = 0 !
+
+if ( length (Stream) > 2) then {
+while ( length (Stream) - i > 2 ) then {
+outputSequence ++ Stream index (i + 2) !
+outputSequence ++ (Stream index (i + 1)) * 2 !
+outputSequence ++ ((Stream index i) * 3) - 1 !
+i = i + 3 !
+}
+}
+
+OUTPUT ( outputSequence ) !
