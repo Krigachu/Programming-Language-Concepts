@@ -13,6 +13,7 @@ import Lexing
     Int    { TokenTypeInt _ }
     List   { TokenTypeList _}
     index  { TokenIndex _ }
+    length { TokenLength _ }
     getline {TokenGetLine _}
     str    { TokenStr _ $$ }
     int    { TokenInt _ $$ } 
@@ -70,6 +71,7 @@ Program : Line Program                          { JKProgram $1 $2 }
 
 Line : List var '!'                          { JKInstantiateList $2}
      | var '++' Exp '!'                     { JKConcat $1 $3}
+     | var '=' getline '!'                  { JKGetLine $1 }
      | Type var '=' Exp '!'               { JKTypeEqualLine $1 $2 $4 }
      | var '=' Exp '!'                    { JKEqualLine $1 $3 }
      | if '(' Condition ')' then '{' Program '}'     { JKIf $3 $7 }
@@ -86,6 +88,7 @@ Exp : Exp '+' Exp                             { JKAdd $1 $3 }
     | Exp mod Exp                             { JKMod $1 $3 }
     | '(' Exp ')'                             { Bracket $2 }
     | var index Exp                           { JKIndex $1 $3 }
+    | length '(' var ')'                      { JKLength $3 }
     | Factor                                  { JKFactor $1 }
 
 Condition : Exp '<' Exp                      { JKCompareLess $1 $3 }
@@ -135,6 +138,7 @@ data Exp = JKAdd Exp Exp
          | JKMod Exp Exp
          | Bracket Exp
          | JKIndex String Exp
+         | JKLength String
          | JKFactor Factor
          deriving (Show, Eq)
 
@@ -148,6 +152,7 @@ data Condition = JKCompareLess Exp Exp
 
 data Line = JKInstantiateList String
           | JKConcat String Exp
+          | JKGetLine String
           | JKTypeEqualLine TokenType String Exp
           | JKEqualLine String Exp
           | JKIf Condition Program

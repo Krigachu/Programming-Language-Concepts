@@ -82,11 +82,19 @@ printList [] = return("")
 printList (x:xs) = do print(x)
                       printList xs
 
+doGetLine :: String -> ListEnvironment -> ListEnvironment
+doGetLine s lenv = addToList (addList s lenv)
+
+convertToInts :: [Int]
+convertToInts = map (read::String -> Int) $words getLine
+
 evalLine :: State -> State
 evalLine (JKProgram (JKInstantiateList s) prog, env, lenv) = evalLine(prog, env, addList s lenv)
 evalLine (JKFinalLine (JKInstantiateList s), env, lenv) = (JKFinalLine (JKInstantiateList s), env, addList s lenv)
 evalLine (JKProgram (JKConcat s e) prog, env, lenv) = evalLine(prog, env, addToList s (evalExp (e, env, lenv)) lenv)
 evalLine (JKFinalLine (JKConcat s e), env, lenv) = (JKFinalLine (JKConcat s e), env, addToList s (evalExp (e, env, lenv)) lenv)
+evalLine (JKProgram (JKGetLine s) prog, env, lenv) = evalLine(prog, env, doGetLine s lenv)
+evalLine (JKProgram (JKGetLine s) prog, env, lenv) = (JKProgram (JKGetLine s), env, doGetLine s lenv)
 evalLine (JKProgram (JKTypeEqualLine t s e) prog, env, lenv) = evalLine(prog, addVariable s (evalExp (e, env, lenv)) env, lenv)
 evalLine (JKFinalLine (JKTypeEqualLine t s e), env, lenv) = (JKFinalLine (JKTypeEqualLine t s e), addVariable s (evalExp (e, env, lenv)) env, lenv)
 evalLine (JKProgram (JKEqualLine s e) prog, env, lenv) = evalLine(prog, addVariable s (evalExp (e, env, lenv)) env, lenv)
@@ -129,6 +137,7 @@ evalExp (JKPower e1 e2, env, lenv) = evalExp (e1, env, lenv) ^ evalExp (e2, env,
 evalExp (JKDiv e1 e2, env, lenv) = evalExp (e1, env, lenv) `div` evalExp (e2, env, lenv)
 evalExp (JKMod e1 e2, env, lenv) = evalExp (e1, env, lenv) `mod` evalExp (e2, env, lenv)
 evalExp (JKIndex s e, env, lenv) = index s (evalExp(e, env, lenv)) lenv
+evalExp (JKLength s, env, lenv) = length ( getList s lenv )
 evalExp (JKFactor e, env, lenv) = evalFactor (e, env, lenv)
 
 evalFactor :: FState -> Int

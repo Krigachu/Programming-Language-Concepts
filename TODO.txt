@@ -1,0 +1,17 @@
+Read from file  -- getLine haskell command reads line
+	         -- words haskell command splits string into ["2", "4"]
+                            -- "2 4" 
+                            -- JORKRI command getLine gets most recent line of fed in file,
+                               split it with words, and convert to int
+                            -- read haskell command converts string int to int
+                            -- map read command to words list to do all and make [int]
+
+PROBLEMS WITH GETLINE, GETLINE RETRIEVES IO SO DATA TYPE IS NO WORKY
+use assignment of <- in do to strip IO
+
+iseof                -- tells when end of file in haskell
+
+\/\/ correct our pseudocode
+
+more common functionality?
+Add for loops?

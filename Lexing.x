@@ -17,6 +17,7 @@ $white+       ;
   Int             { tok (\p s -> TokenTypeInt p) }
   List            { tok (\p s -> TokenTypeList p) }
   index           { tok (\p s -> TokenIndex p) }
+  length          { tok (\p s -> TokenLength p) }
   getline          {tok (\p s -> TokenGetLine p)}
   \" [$alpha $white $digit \_ \’]* \"   { tok (\p s ->TokenStr p (read s)) }
   $digit+         { tok (\p s -> TokenInt p (read s)) }
@@ -69,6 +70,7 @@ data Token =
   TokenTypeReal AlexPosn         |
   TokenTypeList AlexPosn         |
   TokenIndex AlexPosn            |
+  TokenLength AlexPosn           |
   TokenGetLine AlexPosn          |
   TokenStr AlexPosn String       |
   TokenInt AlexPosn Int          |
@@ -115,6 +117,7 @@ tokenPosn (TokenTypeInt  (AlexPn a l c)) = show(l) ++ ":" ++ show(c)
 tokenPosn (TokenTypeReal  (AlexPn a l c)) = show(l) ++ ":" ++ show(c)
 tokenPosn (TokenTypeList  (AlexPn a l c)) = show(l) ++ ":" ++ show(c)
 tokenPosn (TokenIndex (AlexPn a l c)) = show(l) ++ ":" ++ show(c)
+tokenPosn (TokenLength (AlexPn a l c)) = show(l) ++ ":" ++ show(c)
 tokenPosn (TokenGetLine (AlexPn a l c)) = show(l) ++ ":" ++ show(c)
 tokenPosn (TokenStr  (AlexPn a l c) _) = show(l) ++ ":" ++ show(c)
 tokenPosn (TokenInt  (AlexPn a l c) _) = show(l) ++ ":" ++ show(c)

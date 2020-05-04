@@ -5,3 +5,14 @@ mylist ++ i !
 i = i + 1 !
 }
 OUTPUT ( mylist ) !
+
+file = INPUT
+fileline = readLine (file)
+List list1
+List list2
+while (fileLine != "") {
+list1 ++ fileLine index 0
+list2 ++ fileLine index 1
+}
+
+reads the line, splits into elements, converts to int, outputs tuple or whathaveyou
