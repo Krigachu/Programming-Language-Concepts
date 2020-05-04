@@ -133,6 +133,7 @@ evalExp (JKFactor e, env, lenv) = evalFactor (e, env, lenv)
 
 evalFactor :: FState -> Int
 evalFactor (JKInt i, env, lenv) = i
+evalFactor (Negate i, env, lenv) = evalFactor(i, env, lenv) * (-1)
 --evalFactor (JKReal d) = d
 --evalFactor (JKFalse) = False
 --evalFactor (JKTrue) = True

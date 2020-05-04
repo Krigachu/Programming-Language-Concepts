@@ -61,7 +61,7 @@ import Lexing
 %left '>'
 %left '-'
 %left '+'
-
+%left NEG
 
 %% 
 
