@@ -10,6 +10,7 @@ while (  i < (length(sequenceOne) div 2) - 1 ) then {
 outputSequence ++ sequenceOne index (i*2) !
 outputSequence ++ sequenceOne index (i*2 + 1) !
 outputSequence ++ sequenceTwo index i !
+i = i + 1 !
 }
 
 OUTPUT ( outputSequence ) !
