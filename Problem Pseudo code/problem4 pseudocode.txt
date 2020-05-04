@@ -15,11 +15,12 @@ List outputSequence !
 i = 0 !
 
 if ( length (stream) > 2) then {
-    while ( length (stream) - i > 2 ) then {
-        outputSequence ++ stream index (i + 2) !
-		outputSequence ++ (stream index (i + 1)) * 2 !
-		outputSequence ++ ((stream index i) * 3) - 1) !
-	}
+while ( length (stream) - i > 2 ) then {
+outputSequence ++ stream index (i + 2) !
+outputSequence ++ (stream index (i + 1)) * 2 !
+outputSequence ++ ((stream index i) * 3) - 1) !
+i = i + 3 !
+}
 }
 
 OUTPUT ( outputSequence ) !
