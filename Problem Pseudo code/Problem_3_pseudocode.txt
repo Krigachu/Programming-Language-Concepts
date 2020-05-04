@@ -7,7 +7,7 @@ List outputSequence !
 outputSequence ++ 0 !
 i = 0 !
 
-while ( i < (length(sequenceTwo) div 2) -1 ) {
+while ( i < (length(sequenceTwo) div 2) -1 ) then {
 outputSequence ++ sequenceTwo index (i*2 + 1) !
 outputSequence ++ sequenceOne index i !
 i = i + 1 !
