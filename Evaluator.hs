@@ -32,6 +32,8 @@ addVariable s e [] = (s, e):[]
 addVariable s e ((y,x):env) | s == y = ((y, e):env)
                             | otherwise = (y,x) : addVariable s e env
 
+
+
 --getting variable from environment, maybe type could be used here
 getVariable :: String -> Environment -> Int
 getVariable s [] = error "variable used before definition... u big dumb"
@@ -59,6 +61,12 @@ index :: String -> Int -> ListEnvironment -> Int
 index s e [] = error "uh oh, list ain't here"
 index s e ((y,x):env) | s == y = x !! e
                       | otherwise = index s e env
+
+--replace list, used in getline function. i.e u establish a list, do getline to get list of ints, replace the list with the getline list
+replaceList :: String -> [Int] -> ListEnvironment -> ListEnvironment
+replaceList s es [] = error"the list u lookin for ain't here"
+replaceList s es ((y,x):env) | s == y = ((y, es):env)
+                            | otherwise = (y,x) : replaceList s es env
 
 third (_, _, e) = e
 second (_, e, _) = e
