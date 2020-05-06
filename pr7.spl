@@ -1,0 +1,37 @@
+--PROBLEM 7 PROGRAM
+--Stream is the input stream
+--StreamVar is the number of input streams
+--All streams are same length
+
+List stream1 !
+
+j = 0 !
+while (j < length(Stream) ) then {
+stream1 ++ Stream index j !
+j = j + 1 !
+}
+
+List outputSequence !
+a = 0 !
+
+--skip 2 then skip 3 repeat
+
+if ( a == 0 && a < length ( stream1 ) ) then {
+outputSequence ++ stream1 index ( a + 2 ) !
+a = a + 2 !	
+}
+
+while ( a < length ( stream1 ) ) then {
+
+a = a + 4 !
+if ( a < length(stream1)) then {
+outputSequence ++ stream1 index ( a ) !
+}
+
+a = a + 3 !
+if (a < length (stream1)) then { 
+outputSequence ++ stream1 index ( a ) !
+}
+}
+
+OUTPUT ( outputSequence ) !
