@@ -12,13 +12,12 @@ j = j + 1 !
 }
 
 List outputSequence !
-a = 0 !
+a = 2 !
 
 --skip 2 then skip 3 repeat
 
-if ( a == 0 && a < length ( stream1 ) ) then {
-outputSequence ++ stream1 index ( a + 2 ) !
-a = a + 2 !	
+if ( a < length ( stream1 ) ) then {
+outputSequence ++ stream1 index ( a ) !	
 }
 
 while ( a < length ( stream1 ) ) then {
