@@ -17,14 +17,14 @@ List outputSequence !
 a = 0 !
 b = 0 !
 --take 2 elements from s1, take 3 elements from s2, repeat this pattern
-while ( a < length ( stream1 ) ) then {
+while ( a < length ( stream1 ) && b mod 3 == 0) then {
 
-if (  a < length ( stream1 ) && b mod 3 == 0) then {
+if (  a < length ( stream1 )) then {
 outputSequence ++ stream1 index a !
 a = a + 1 !
 }
 
-if ( a < length ( stream1 ) && b mod 3 == 0) then {
+if ( a < length ( stream1 )) then {
 outputSequence ++ stream1 index a !
 a = a + 1 !	
 }
