@@ -1,0 +1,16 @@
+--PROBLEM 9 PROGRAM
+--Stream is the input stream
+--StreamVar is the number of input streams
+--All streams are same length
+
+List outputSequence !
+
+a = 0 !
+
+while (a < length (Stream) ) then {
+outputSequence ++ Stream index a !
+outputSequence ++ a + 1 !
+a = a + 1 !
+}
+
+OUTPUT (outputSequence) !
