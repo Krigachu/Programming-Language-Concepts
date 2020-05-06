@@ -1,0 +1,49 @@
+--PROBLEM 6 PROGRAM
+--Stream is the input stream
+--StreamVar is the number of input streams
+--All streams are same length
+
+List stream1 !
+List stream2 !
+
+j = 0 !
+while (j < length(Stream) ) then {
+stream1 ++ Stream index j !
+stream2 ++ Stream index (j + 1) !
+j = j + 2 !
+}
+
+List outputSequence !
+a = 0 !
+b = 0 !
+--take 2 elements from s1, take 3 elements from s2, repeat this pattern
+while ( a < length ( stream1 ) ) then {
+
+if (  a < length ( stream1 ) ) then {
+outputSequence ++ stream1 index a !
+a = a + 1 !
+}
+
+if ( a < length ( stream1 ) ) then {
+outputSequence ++ stream1 index a !
+a = a + 1 !	
+}
+
+if ( b < length ( stream2 ) ) then {
+outputSequence ++ stream2 index b !
+b = b + 1 !	
+}
+
+if ( b < length ( stream2 ) ) then {
+outputSequence ++ stream2 index b !
+b = b + 1 !	
+}
+
+if ( b < length ( stream2 ) ) then {
+outputSequence ++ stream2 index b !
+b = b + 1 !	
+}
+
+}
+
+OUTPUT ( outputSequence ) !
