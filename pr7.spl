@@ -3,33 +3,25 @@
 --StreamVar is the number of input streams
 --All streams are same length
 
-List stream1 !
-
-j = 0 !
-while (j < length(Stream) ) then {
-stream1 ++ Stream index j !
-j = j + 1 !
-}
-
 List outputSequence !
 a = 2 !
 
 --skip 2 then skip 3 repeat
 
-if ( a < length ( stream1 ) ) then {
-outputSequence ++ stream1 index ( a ) !	
+if ( a < length ( Stream ) ) then {
+outputSequence ++ Stream index ( a ) !	
 }
 
-while ( a < length ( stream1 ) ) then {
+while ( a < length ( Stream ) ) then {
 
 a = a + 4 !
-if ( a < length(stream1)) then {
-outputSequence ++ stream1 index ( a ) !
+if ( a < length(Stream)) then {
+outputSequence ++ Stream index ( a ) !
 }
 
 a = a + 3 !
-if (a < length (stream1)) then { 
-outputSequence ++ stream1 index ( a ) !
+if (a < length (Stream)) then { 
+outputSequence ++ Stream index ( a ) !
 }
 }
 
