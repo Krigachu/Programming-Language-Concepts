@@ -1,0 +1,25 @@
+--PROGRAM PROBLEM 8
+List stream1 !
+List stream2 !
+
+j = 0 !
+
+while (j < length(Stream) ) then {
+stream1 ++ Stream index j !
+stream2 ++ Stream index (j + 1) !
+j = j + 2 !
+}
+
+i = 0 !
+List outputSequence !
+
+while (i < length(stream1)) then {
+outputSequence ++ stream1 index i !
+outputSequence ++ stream2 index i !
+if ((i+1) mod 5 == 0) then {
+outputSequence ++ (stream1 index (i-4)) - (stream2 index (i-4)) + (stream1 index (i-3)) - (stream2 index (i-3)) + (stream1 index (i-2)) - (stream2 index (i-2)) + (stream1 index (i-1)) - (stream2 index (i-1)) + (stream1 index i) - (stream2 index i) !
+}
+i = i + 1 !
+}
+
+OUTPUT (outputSequence) !
