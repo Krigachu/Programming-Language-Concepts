@@ -16,18 +16,20 @@ j = j + 2 !
 List outputSequence !
 a = 0 !
 b = 0 !
---take 2 elements from s1, take 3 elements from s2, repeat this pattern
-while ( a < length ( stream1 ) && b mod 3 == 0) then {
 
-if (  a < length ( stream1 )) then {
+if ( length(stream1) > 0 ) then {
+
 outputSequence ++ stream1 index a !
 a = a + 1 !
-}
 
-if ( a < length ( stream1 )) then {
+if ( length(stream1) > 1 ) then {
+
 outputSequence ++ stream1 index a !
-a = a + 1 !	
-}
+a = a + 1 !
+while (b < length (stream2)) then {
+
+outputSequence ++ stream2 index b !
+b = b + 1 !
 
 if ( b < length ( stream2 ) ) then {
 outputSequence ++ stream2 index b !
@@ -36,14 +38,17 @@ b = b + 1 !
 
 if ( b < length ( stream2 ) ) then {
 outputSequence ++ stream2 index b !
-b = b + 1 !	
+b = b + 1 !
+outputSequence ++ stream1 index a !
+a = a + 1 !
+if ( a < length(stream1) ) then {
+outputSequence ++ stream1 index a !
+a = a + 1 !
+}	
 }
 
-if ( b < length ( stream2 ) ) then {
-outputSequence ++ stream2 index b !
-b = b + 1 !	
+}
+}
 }
 
-}
-
-OUTPUT ( outputSequence ) !
+OUTPUT (outputSequence) !
